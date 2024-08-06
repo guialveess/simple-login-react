@@ -5,12 +5,13 @@ import { Button } from "@/components/ui/button";
 import { CheckboxDemo, InputDemo } from "@/components";
 import { useState } from "react";
 import { toast } from "sonner";
+import { useNavigate } from 'react-router-dom';
 
 const formSchema = z.object({
     email: z.string({
         required_error: "O e-mail é obrigatório",
         invalid_type_error: "Por favor inclua um '@' no endereço de e-mail"
-    }).email({ message: "Endereço de email invalido" }),
+    }).email({ message: "Endereço de email inválido" }),
     password: z.string({
         required_error: "Senha requerida",
     }).min(5, {
@@ -19,7 +20,8 @@ const formSchema = z.object({
 });
 
 export default function LoginForm() {
-    const [isLoading, setLoading] = useState(false)
+    const [isLoading, setLoading] = useState(false);
+    const navigate = useNavigate();
 
     const { register, handleSubmit, formState: { errors } } = useForm({
         resolver: zodResolver(formSchema),
@@ -31,13 +33,20 @@ export default function LoginForm() {
 
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         setLoading(true);
-        await new Promise((resolve) => {
-            setTimeout(() => {
-                toast(JSON.stringify(values))
-                resolve(null);
-            }, 3000);
-        });
-        setLoading(false);
+        try {
+            await new Promise((resolve) => {
+                setTimeout(() => {
+                    toast(JSON.stringify(values));
+                    resolve(null);
+                }, 3000);
+            });
+            navigate('/home'); // Redireciona para a página "Home"
+        } catch (error) {
+            // Handle any errors here
+            toast.error("Ocorreu um erro. Tente novamente.");
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (
@@ -47,20 +56,27 @@ export default function LoginForm() {
                 type="email"
                 placeholder="Digite seu e-mail"
                 error={errors.email?.message}
+                required
                 {...register("email")}
             />
             <InputDemo
-                label="Password"
+                label="Senha"
                 placeholder="Coloque sua senha"
                 type="password"
                 startIcon="/security.svg"
                 endIcon="/eyes.svg"
                 error={errors.password?.message}
+                required
                 {...register("password")}
             />
             <CheckboxDemo label="Lembre-se por 30 dias" id="remember" />
-            <Button loading={isLoading} type="submit" className="space-x-2">
-                <span>Entrar    </span>
+            <Button 
+                loading={isLoading} 
+                type="submit" 
+                className="space-x-2" 
+                disabled={isLoading}
+            >
+                <span>Entrar</span>
                 <img src="/right-chevron.svg" alt="Chevron-right" />
             </Button>
         </form> 
