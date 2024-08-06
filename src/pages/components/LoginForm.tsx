@@ -8,13 +8,13 @@ import { toast } from "sonner";
 
 const formSchema = z.object({
     email: z.string({
-        required_error: "Email is required",
-        invalid_type_error: "Please include an '@' in the email address"
-    }).email({ message: "Invalid email address" }),
+        required_error: "O e-mail é obrigatório",
+        invalid_type_error: "Por favor inclua um '@' no endereço de e-mail"
+    }).email({ message: "Endereço de email invalido" }),
     password: z.string({
-        required_error: "Password is required",
+        required_error: "Senha requerida",
     }).min(5, {
-        message: "Must be at least 5 characters long"
+        message: "Deve ter pelo menos 5 caracteres"
     }),
 });
 
@@ -63,6 +63,6 @@ export default function LoginForm() {
                 <span>Entrar    </span>
                 <img src="/right-chevron.svg" alt="Chevron-right" />
             </Button>
-        </form>
+        </form> 
     );
 }
