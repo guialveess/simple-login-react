@@ -45,22 +45,22 @@ export default function LoginForm() {
             <InputDemo
                 label="Email"
                 type="email"
-                placeholder="Enter your email"
+                placeholder="Digite seu e-mail"
                 error={errors.email?.message}
                 {...register("email")}
             />
             <InputDemo
                 label="Password"
-                placeholder="Enter your password"
+                placeholder="Coloque sua senha"
                 type="password"
                 startIcon="/security.svg"
                 endIcon="/eyes.svg"
                 error={errors.password?.message}
                 {...register("password")}
             />
-            <CheckboxDemo label="Remember for 30 days" id="remember" />
+            <CheckboxDemo label="Lembre-se por 30 dias" id="remember" />
             <Button loading={isLoading} type="submit" className="space-x-2">
-                <span>Sign in</span>
+                <span>Entrar    </span>
                 <img src="/right-chevron.svg" alt="Chevron-right" />
             </Button>
         </form>
