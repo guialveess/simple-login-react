@@ -1,4 +1,3 @@
-import React from 'react';
 import CatAnimation from '../../src/pages/components/CatLoading';
 
 function Home() {

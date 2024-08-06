@@ -1,17 +1,14 @@
-import React from 'react';
 import Lottie from 'react-lottie';
 import animationData from '../../assets/animation.json'; 
 
-function CatAnimation() {
-  const defaultOptions = {
-    loop: true,
-    autoplay: true, 
-    animationData: animationData,
-  };
+const CatAnimation = () => {
+    const defaultOptions = {
+        loop: true,
+        autoplay: true,
+        animationData: animationData,
+    };
 
-  return <Lottie options={defaultOptions} height={300} width={300} />;
-
-}
+    return <Lottie options={defaultOptions} height={400} width={400} />;
+};
 
 export default CatAnimation;
-
